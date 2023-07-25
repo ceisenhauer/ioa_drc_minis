@@ -14,3 +14,7 @@ Ce dépôt fait partie de la collection Analyse intégrée des épidémies pour 
 
 Si vous avez des questions ou des commentaires, merci d'ouvre un issue.
 
+Résumé des Sous-Dossiers
+----------------------------------------------------------------------------------------------------
+
+-`epicurve_collect` : Crée une épicourbe avec une légende indiquant quels cas ont été enquêtés et quand les enquêtes ont été menées.
