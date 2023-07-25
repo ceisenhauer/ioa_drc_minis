@@ -4,6 +4,7 @@ library(ggplot2)
 theme_set(epiplots::theme_clean())
 colors <- epiplots::colors
 
+
 # import -------------------------------------------------------------------------------------------
 followup <- rio::import(here::here('epicurve_collect', 'data', 'followup.xlsx')) %>%
   select(zone, week_epi_min, week_epi_max, week_collect, collect_name)
@@ -25,8 +26,6 @@ df <- rio::import(here::here('epicurve_collect', 'data', 'cholera_ids.RDS')) %>%
 
 
 # plot ---------------------------------------------------------------------------------------------
-z <- 'Nyiragongo'
-
 for (z in unique(followup$zone)) {
   writeLines(z)
 
@@ -45,20 +44,14 @@ for (z in unique(followup$zone)) {
                                     locale = 'fr_FR.utf8')) %>%
     ggplot(aes(x = week,
                y = cases,
-               #group = month,
                fill = collect_name)) +
     geom_col() +
-    scale_fill_manual(#name = 'Collection : ',
-                      name = '',
+    scale_fill_manual(name = '',
                       breaks = collects,
                       na.value = colors$grey_light_3,
                       values = c(colors$blue,
                                  colors$gold)) +
-    #epiplots::date_axis() +
     scale_x_continuous(breaks = min(tmp$week):max(tmp$week)) +
-                       #sec.axis = sec_axis(~ (. + 1.5) / 4,
-                                           #breaks = 1:length(months),
-                                           #labels = months)) +
     facet_grid(.~month,
                scales = 'free',
                switch = 'x',
@@ -66,9 +59,7 @@ for (z in unique(followup$zone)) {
     ylab('Cas Hebdomadaires') +
     xlab('Semaine ISO') +
     labs(title = z) +
-    theme(#axis.title.x = element_blank(),
-          legend.text = ggtext::element_markdown(),
-          #legend.position = 'bottom',
+    theme(legend.text = ggtext::element_markdown(),
           legend.position = 'right',
           axis.text.x = element_text(size = 11),
           panel.spacing = unit(0, 'cm'),
@@ -82,10 +73,3 @@ for (z in unique(followup$zone)) {
          width = 9.34,
          height = 4.17)
 }
-
-#months <- seq(min(tmp$date),
-              #max(tmp$date),
-              #by = 'month') %>%
-  #lubridate::month(label = TRUE,
-                   #locale = 'fr_FR.utf8') 
-
